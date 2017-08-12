@@ -1,9 +1,11 @@
 package com.emmanuelmess.modularitytest.modules;
 
 import android.content.Context;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.emmanuelmess.modularitytest.Module;
+import com.emmanuelmess.modularitytest.R;
+import com.emmanuelmess.modularitytest.activity.MainActivity;
 
 /**
  * @author Emmanuel
@@ -13,6 +15,7 @@ import com.emmanuelmess.modularitytest.Module;
 public class Manifest implements Module {
 
     private Context context;
+    private TextView log;
 
     public Manifest() {
 
@@ -40,22 +43,28 @@ public class Manifest implements Module {
     @Override
     public String onLoad(Context context) {
         this.context = context;
-        Toast.makeText(context, getName() + ":onLoad()", Toast.LENGTH_SHORT).show();
+        log = ((TextView) MainActivity.mainActivity.get().findViewById(R.id.textView2));
+
+        addTextToLog(getName() + ":onLoad()");
         return null;
     }
 
     @Override
     public void onShow() {
-        Toast.makeText(context, getName() + ":onShow()", Toast.LENGTH_SHORT).show();
+        addTextToLog(getName() + ":onShow()");
     }
 
     @Override
     public void onHide() {
-        Toast.makeText(context, getName() + ":onHide()", Toast.LENGTH_SHORT).show();
+        addTextToLog(getName() + ":onHide()");
     }
 
     @Override
     public void onUnload() {
-        Toast.makeText(context, getName() + ":onUnload()", Toast.LENGTH_SHORT).show();
+        addTextToLog(getName() + ":onUnload()");
+    }
+
+    private void addTextToLog(String l){
+        log.append("\n" + l);
     }
 }

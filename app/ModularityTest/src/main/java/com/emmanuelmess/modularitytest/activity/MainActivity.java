@@ -7,7 +7,11 @@ import android.widget.TextView;
 
 import com.emmanuelmess.modularitytest.R;
 
+import java.lang.ref.WeakReference;
+
 public class MainActivity extends LoaderActivity {
+
+    public static WeakReference<MainActivity> mainActivity;
 
     private TextView textView;
 
@@ -15,23 +19,14 @@ public class MainActivity extends LoaderActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainActivity = new WeakReference<>(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         textView = (TextView) findViewById(R.id.textView);
 
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
+        super.onCreate(savedInstanceState);//this here is a brutal hack, but this isn't going to be shipped
     }
 
     public void onClickNone(View view){
